@@ -1,0 +1,52 @@
+/* ===== Dracula-Palette + Design-Tokens =====
+   Zentral definiert (DRY): jede Farbe, Schrift und Abstand an EINER Stelle. */
+:root {
+  /* Farben */
+  --bg:      #282a36;
+  --bg-deep: #1a1b23;
+  --panel:   #21222c;
+  --line:    #44475a;
+  --fg:      #f8f8f2;
+  --comment: #6272a4;
+  --cyan:    #8be9fd;
+  --green:   #50fa7b;
+  --orange:  #ffb86c;
+  --pink:    #ff79c6;
+  --purple:  #bd93f9;
+  --red:     #ff5555;
+  --yellow:  #f1fa8c;
+
+  /* Schriften */
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Code', monospace;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Type-Scale (modular, ~1.25) */
+  --fs-xs:   12px;
+  --fs-sm:   13px;
+  --fs-base: 15px;
+  --fs-md:   17px;
+  --fs-lg:   20px;
+  --fs-xl:   26px;
+  --fs-2xl:  clamp(28px, 5vw, 44px);
+
+  /* Abstände */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+
+  --radius:    10px;
+  --radius-sm: 6px;
+  --radius-lg: 14px;
+
+  --shadow: 0 10px 40px -12px rgba(0, 0, 0, 0.55);
+
+  /* Level-Farben (Roadmap/Badges) */
+  --lvl-basic:        var(--green);
+  --lvl-intermediate: var(--cyan);
+  --lvl-advanced:     var(--orange);
+  --lvl-senior:       var(--pink);
+}

@@ -1,0 +1,53 @@
+name: 🐛 Bug report
+description: Etwas funktioniert nicht wie erwartet
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke, dass du dir die Zeit nimmst, diesen Bug zu melden!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Was ist passiert?
+      description: Beschreibe den Bug. Was hast du gemacht, was hast du erwartet, was ist stattgefunden?
+      placeholder: |
+        1. Ich habe … geöffnet
+        2. … eingegeben / geklickt
+        3. Stattdessen ist … passiert
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Bereich
+      options:
+        - Terminal / Mini-Bash-Interpreter
+        - Skript-Simulator
+        - Navigation / Sidebar / Roadmap
+        - Command-Palette (⌘/Strg+K)
+        - Inhalte (Text, Cheatsheets, etc.)
+        - Design / Layout
+        - Fortschritts-Tracking
+        - Sonstiges
+    validations:
+      required: true
+  - type: input
+    id: topic
+    attributes:
+      label: Thema / URL (falls zutreffend)
+      placeholder: "#/tmux"
+  - type: textarea
+    id: env
+    attributes:
+      label: Browser & System
+      description: Welcher Browser, welches Betriebssystem?
+      placeholder: "Firefox 124 auf Ubuntu 24.04"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Konsolen-Ausgabe / Fehler
+      description: Browser-Konsole (F12), relevante Meldungen. Code-Blöcke sind ok.
+      render: shell

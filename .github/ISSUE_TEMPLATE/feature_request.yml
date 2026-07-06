@@ -1,0 +1,37 @@
+name: ✨ Feature / neues Thema
+description: Idee für ein neues Thema, einen Baustein oder ein Feature
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Hast du eine Idee, was Tuxlab noch brauchen könnte? Super — her damit!
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Art der Idee
+      options:
+        - Neues Thema (Linux-Bereich)
+        - Neuer interaktiver Baustein (Block-Typ)
+        - Mini-Bash: fehlender Befehl / Konstrukt
+        - Verbesserung bestehender Inhalte
+        - Neues Feature (Navigation, UX, etc.)
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Deine Idee
+      description: Was genau möchtest du sehen, und warum ist es nützlich?
+    validations:
+      required: true
+  - type: input
+    id: level
+    attributes:
+      label: Roadmap-Stufe (falls neues Thema)
+      placeholder: "basic | intermediate | advanced | senior"
+  - type: input
+    id: category
+    attributes:
+      label: Kategorie (falls neues Thema)
+      placeholder: "grundlagen | system | werkzeuge | konzepte | kultur"

@@ -1,0 +1,93 @@
+/* ===================== ToolGrid ===================== */
+.toolgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.toolcard {
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 16px 18px; display: flex; flex-direction: column; gap: 8px;
+  transition: border-color 0.14s, transform 0.14s;
+}
+.toolcard:hover { border-color: var(--comment); transform: translateY(-2px); }
+.toolcard-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.toolcard-name { font-family: var(--mono); font-weight: 700; font-size: var(--fs-md); color: var(--green); }
+.toolcard-tag {
+  font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--cyan); border: 1px solid var(--line); border-radius: 20px; padding: 2px 8px;
+}
+.toolcard-desc { font-size: var(--fs-sm); color: var(--fg); flex: 1; }
+.toolcard-desc code { font-family: var(--mono); font-size: 0.9em; color: var(--cyan); background: var(--bg-deep); border-radius: 4px; padding: 1px 5px; }
+.toolcard-install {
+  display: block; font-family: var(--mono); font-size: var(--fs-xs); color: var(--comment);
+  background: var(--bg-deep); border: 1px solid var(--line); border-radius: var(--radius-sm);
+  padding: 8px 10px; overflow-x: auto; white-space: pre;
+}
+.toolcard-links { display: flex; gap: 8px; margin-top: 2px; }
+.repo-btn {
+  display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+  font-family: var(--mono); font-size: var(--fs-xs); color: var(--bg); background: var(--purple);
+  border: 1px solid var(--purple); border-radius: var(--radius-sm); padding: 6px 12px;
+  transition: filter 0.14s;
+}
+.repo-btn:hover { filter: brightness(1.12); text-decoration: none; }
+.repo-btn.ghost { background: transparent; color: var(--cyan); border-color: var(--line); }
+.repo-btn.ghost:hover { border-color: var(--cyan); }
+
+/* ===================== DistroGrid ===================== */
+.distrogrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.distrocard {
+  display: flex; gap: 14px; background: var(--panel); border: 1px solid var(--line);
+  border-top: 3px solid var(--comment); border-radius: var(--radius); padding: 16px 18px;
+}
+.distro-logo {
+  flex-shrink: 0; width: 52px; height: 52px; border-radius: 12px;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+.distro-logo svg { width: 34px; height: 34px; display: block; }
+.distro-logo img.distro-logo-img {
+  width: 38px; height: 38px; object-fit: contain; display: block;
+  /* Bei reinen Wortmarken (Kali, Mint, …) den Rahmen etwas ausnutzen */
+  padding: 2px;
+}
+.distro-body { min-width: 0; }
+.distro-name { font-family: var(--mono); font-weight: 700; font-size: var(--fs-md); color: var(--fg); }
+.distro-meta { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 4px 0 8px; font-family: var(--mono); font-size: var(--fs-xs); }
+.distro-based { color: var(--comment); }
+.distro-pkg { font-weight: 700; }
+.distro-desc { font-size: var(--fs-sm); color: var(--fg); }
+.distro-desc code { font-family: var(--mono); font-size: 0.9em; color: var(--cyan); }
+.distro-flavor { font-size: var(--fs-xs); color: var(--comment); margin-top: 8px; }
+
+/* ===================== Timeline ===================== */
+.timeline { display: flex; flex-direction: column; }
+.tl-item { display: grid; grid-template-columns: 92px 1fr; gap: 16px; }
+.tl-marker { position: relative; text-align: right; padding-right: 18px; }
+.tl-marker::before {
+  content: ''; position: absolute; right: 0; top: 6px; bottom: -18px; width: 2px; background: var(--line);
+}
+.tl-item:last-child .tl-marker::before { display: none; }
+.tl-dot {
+  position: absolute; right: -5px; top: 4px; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--purple); border: 2px solid var(--bg); z-index: 1;
+}
+.tl-year { font-family: var(--mono); font-weight: 800; font-size: var(--fs-base); color: var(--cyan); }
+.tl-content { padding-bottom: 22px; }
+.tl-title { font-family: var(--mono); font-size: var(--fs-base); color: var(--fg); margin-bottom: 3px; }
+.tl-text { font-size: var(--fs-sm); color: var(--comment); }
+.tl-text b { color: var(--fg); }
+.tl-text code { font-family: var(--mono); color: var(--green); font-size: 0.9em; }
+
+/* ===================== DataTable ===================== */
+.datatable-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+.datatable { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.datatable th, .datatable td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.datatable th {
+  font-family: var(--mono); font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--purple); background: var(--bg-deep); position: sticky; top: 0;
+}
+.datatable tr:last-child td { border-bottom: none; }
+.datatable td:first-child { font-family: var(--mono); color: var(--green); white-space: nowrap; }
+.datatable code { font-family: var(--mono); font-size: 0.9em; color: var(--cyan); }
+.datatable tbody tr:hover { background: rgba(68, 71, 90, 0.25); }
+
+@media (max-width: 640px) {
+  .tl-item { grid-template-columns: 70px 1fr; gap: 10px; }
+}

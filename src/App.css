@@ -1,0 +1,26 @@
+.app {
+  display: grid;
+  grid-template-columns: 288px 1fr;
+  min-height: 100vh;
+  align-items: stretch;
+}
+
+.main { min-width: 0; }
+.main-inner {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 40px 32px 96px;
+}
+
+.not-found {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+.not-found code { color: var(--red); }
+
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+  .main-inner { padding: 24px 18px 96px; }
+}

@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Frage / Diskussion
+    url: https://github.com/LevinTheDoctor/tuxlab/discussions
+    about: Für Fragen, die kein Bug oder Feature-Request sind — gerne als Discussion.

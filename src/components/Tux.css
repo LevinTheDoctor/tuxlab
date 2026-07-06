@@ -1,0 +1,51 @@
+.tux { position: relative; display: flex; flex-direction: column; align-items: center; }
+
+.tux-art {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--fg);
+  padding: 0;
+  line-height: 1.05;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.tux-art pre { font-family: var(--mono); font-size: 11px; font-weight: 700; }
+.tux-art:hover { transform: translateY(-2px) scale(1.03); color: var(--cyan); }
+
+.tux-sidebar .tux-art pre { font-size: 10px; }
+.tux-floating .tux-art pre { font-size: 12px; }
+
+.tux-bubble {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--cyan);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) var(--radius-sm);
+  padding: 8px 12px;
+  font-size: var(--fs-sm);
+  color: var(--fg);
+  max-width: 220px;
+  margin-bottom: 8px;
+  box-shadow: var(--shadow);
+  animation: tux-pop 0.18s ease;
+}
+@keyframes tux-pop {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tux-party .tux-art { animation: tux-wobble 0.4s ease-in-out infinite; color: var(--pink); }
+@keyframes tux-wobble {
+  0%, 100% { transform: rotate(-6deg); }
+  50%      { transform: rotate(6deg); }
+}
+.tux-confetti {
+  position: absolute;
+  top: -18px;
+  font-size: 18px;
+  animation: tux-rise 2.4s ease-out;
+  pointer-events: none;
+}
+@keyframes tux-rise {
+  from { opacity: 1; transform: translateY(10px); }
+  to   { opacity: 0; transform: translateY(-40px); }
+}

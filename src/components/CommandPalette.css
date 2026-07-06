@@ -1,0 +1,52 @@
+.palette-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(10, 11, 16, 0.6); backdrop-filter: blur(3px);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding-top: 12vh;
+  animation: pal-fade 0.12s ease;
+}
+@keyframes pal-fade { from { opacity: 0; } to { opacity: 1; } }
+
+.palette {
+  width: min(92vw, 620px);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  animation: pal-pop 0.14s ease;
+}
+@keyframes pal-pop { from { transform: translateY(-8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.palette-input-row { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+.palette-prompt { font-family: var(--mono); color: var(--green); font-weight: 700; }
+.palette-input {
+  flex: 1; background: none; border: none; color: var(--fg);
+  font-family: var(--mono); font-size: var(--fs-md); caret-color: var(--green);
+}
+.palette-input:focus { outline: none; }
+.palette-esc { font-family: var(--mono); font-size: 11px; color: var(--comment); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; }
+
+.palette-results { max-height: 46vh; overflow-y: auto; padding: 6px; }
+.palette-item {
+  display: flex; align-items: center; gap: 12px; width: 100%; cursor: pointer;
+  background: none; border: none; border-radius: var(--radius-sm); padding: 10px 12px; text-align: left;
+}
+.palette-item.active { background: var(--bg); }
+.pi-ico { font-size: 18px; width: 22px; text-align: center; }
+.pi-body { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.pi-title { color: var(--fg); font-weight: 600; font-size: var(--fs-base); }
+.pi-sum { color: var(--comment); font-size: var(--fs-xs); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pi-snippet { color: var(--comment); font-size: var(--fs-xs); display: block; margin-top: 2px; line-height: 1.4; }
+.pi-snippet mark { background: rgba(255, 184, 108, 0.28); color: #ffb86c; border-radius: 3px; padding: 0 2px; }
+.pi-lvl { font-family: var(--mono); font-size: 11px; font-weight: 700; flex-shrink: 0; }
+
+.palette-empty { padding: 20px; color: var(--comment); font-size: var(--fs-sm); text-align: center; }
+.palette-empty code { font-family: var(--mono); color: var(--cyan); }
+
+.palette-foot {
+  display: flex; gap: 16px; padding: 10px 16px; border-top: 1px solid var(--line);
+  font-size: var(--fs-xs); color: var(--comment); font-family: var(--mono);
+}
+.palette-foot kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; margin-right: 2px; color: var(--pink); }
+.palette-foot code { color: var(--cyan); }

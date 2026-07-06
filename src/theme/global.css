@@ -1,0 +1,47 @@
+@import './tokens.css';
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(189, 147, 249, 0.08), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(139, 233, 253, 0.06), transparent 55%),
+    var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  line-height: 1.6;
+  font-size: var(--fs-base);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+a { color: var(--cyan); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+code, kbd, pre { font-family: var(--mono); }
+
+::selection { background: rgba(189, 147, 249, 0.35); color: var(--fg); }
+
+/* Fokus überall sichtbar (A11y-Grundfloor) */
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 4px; }
+
+/* Scrollbar im Dracula-Look */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--panel); }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 20px; }
+::-webkit-scrollbar-thumb:hover { background: var(--comment); }
+
+/* Inline-Helfer, die in Content-HTML (prose) genutzt werden */
+.hl-cyan   { color: var(--cyan); }
+.hl-green  { color: var(--green); }
+.hl-orange { color: var(--orange); }
+.hl-pink   { color: var(--pink); }
+.hl-purple { color: var(--purple); }
+.hl-red    { color: var(--red); }
+.hl-yellow { color: var(--yellow); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
