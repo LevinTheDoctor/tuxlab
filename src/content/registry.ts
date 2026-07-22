@@ -1,5 +1,8 @@
 import type { Topic } from '../types/content';
 import { terminalBasics, files } from './basics-terminal';
+import { textTools, finding } from './text-tools';
+import { archives } from './archives';
+import { dockerfileCompose } from './dockerfile';
 import { directories } from './directories';
 import { permissions } from './permissions';
 import { users } from './users';
@@ -32,6 +35,8 @@ export const topics: Topic[] = [
   terminalBasics,
   files,
   directories,
+  textTools,
+  finding,
   // System
   permissions,
   users,
@@ -41,9 +46,11 @@ export const topics: Topic[] = [
   // Werkzeuge
   shells,
   shellScripting,
+  archives,
   git,
   tmux,
   docker,
+  dockerfileCompose,
   nvim,
   sync,
   devtools,

@@ -45,8 +45,32 @@ export function makeDefaultFs(): FsDir {
       levin: dir({
         'notizen.txt': file('TODO:\n- Linux lernen\n- Backup einrichten\n- Tux fuettern\n'),
         'hallo.sh': file('#!/bin/bash\necho "Hallo, $USER!"\n'),
+        'benutzer.csv': file(
+          'name,stadt,shell\n' +
+            'levin,Berlin,bash\n' +
+            'max,Hamburg,zsh\n' +
+            'kim,Berlin,fish\n' +
+            'ada,London,bash\n' +
+            'linus,Helsinki,bash\n',
+        ),
+        logs: dir({
+          'app.log': file(
+            'INFO  Server gestartet auf Port 8080\n' +
+              'ERROR Datenbank nicht erreichbar\n' +
+              'INFO  Anfrage GET /index\n' +
+              'WARN  Speicher wird knapp\n' +
+              'ERROR Datenbank nicht erreichbar\n' +
+              'INFO  Anfrage GET /login\n' +
+              'ERROR Timeout bei /api/users\n' +
+              'INFO  Anfrage GET /index\n' +
+              'ERROR Datenbank nicht erreichbar\n' +
+              'INFO  Verbindung zur Datenbank wiederhergestellt\n',
+          ),
+        }),
         projekte: dir({
           'readme.md': file('# Mein Projekt\nEin kleines Homelab.\n'),
+          'ideen.md': file('# Ideen\n- Pi-hole aufsetzen\n- Eigenen Git-Server hosten\n'),
+          'todo.txt': file('backup-skript schreiben\ndocker lernen\n'),
         }),
         '.bashrc': file('# ~/.bashrc\nalias ll="ls -la"\nexport EDITOR=nvim\n'),
       }),
@@ -56,8 +80,28 @@ export function makeDefaultFs(): FsDir {
       log: dir({
         'syslog': file('Jul  6 10:00:01 ubuntu systemd[1]: Started Daily apt.\nJul  6 10:00:02 ubuntu kernel: [ok] Tux ist online.\n'),
         'auth.log': file('Jul  6 09:59:00 ubuntu sshd[1337]: Accepted publickey for levin\n'),
+        'kern.log': file('Jul  6 09:58:00 ubuntu kernel: Linux version 6.8.0-generic\n'),
       }),
       www: dir({ html: dir({ 'index.html': file('<h1>It works!</h1>\n') }) }),
+    }),
+    proc: dir({
+      cpuinfo: file(
+        'processor\t: 0\nmodel name\t: Tux-Core i7-1337 @ 2.40GHz\ncpu MHz\t\t: 2400.000\ncache size\t: 8192 KB\n\n' +
+          'processor\t: 1\nmodel name\t: Tux-Core i7-1337 @ 2.40GHz\ncpu MHz\t\t: 2400.000\ncache size\t: 8192 KB\n',
+      ),
+      meminfo: file(
+        'MemTotal:       16326428 kB\nMemFree:         8123456 kB\nMemAvailable:   12345678 kB\n' +
+          'Buffers:          234567 kB\nCached:          3456789 kB\nSwapTotal:       2097148 kB\nSwapFree:        2097148 kB\n',
+      ),
+      uptime: file('86400.12 172800.34\n'),
+      version: file('Linux version 6.8.0-generic (tux@buildd) #42-Ubuntu SMP\n'),
+    }),
+    sys: dir({
+      class: dir({
+        net: dir({ eth0: dir({}), lo: dir({}) }),
+        power_supply: dir({}),
+        leds: dir({}),
+      }),
     }),
     tmp: dir({}),
     root: dir({}),

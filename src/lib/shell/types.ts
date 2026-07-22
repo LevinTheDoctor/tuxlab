@@ -4,6 +4,7 @@ import type { FsDir } from '../fakeFs';
 export interface Shell {
   fs: FsDir;
   cwd: string[]; // Pfad-Segmente, z.B. ['home','levin']
+  prevCwd?: string[]; // für `cd -`
   vars: Record<string, string>;
   lastExit: number;
 }

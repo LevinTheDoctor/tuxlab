@@ -8,11 +8,28 @@ export const docker: Topic = {
   icon: '🐳',
   level: 'advanced',
   category: 'werkzeuge',
-  summary: 'Image vs. Container, der Lifecycle und die Befehle, die du täglich brauchst.',
+  summary: 'Image vs. Container, der Lifecycle, Volumes & Netzwerke — und alle Alltagsbefehle.',
   blocks: [
     {
       type: 'prose',
       html: `<b class="hl-cyan">Docker</b> packt eine Anwendung samt allem, was sie braucht, in ein isoliertes Paket. Zwei Begriffe muss man auseinanderhalten: ein <b class="hl-orange">Image</b> ist der unveränderliche Bauplan, ein <b class="hl-green">Container</b> ist eine laufende Instanz davon. Aus einem Image kannst du beliebig viele Container starten.`,
+    },
+    {
+      type: 'prose',
+      html: `Ein Container ist dabei <b>keine</b> virtuelle Maschine: er bringt kein eigenes Betriebssystem mit, sondern teilt sich den <b class="hl-red">Kernel</b> des Hosts und wird nur sauber davon abgeschottet (Namespaces & cgroups). Deshalb startet er in Millisekunden statt Minuten:`,
+    },
+    {
+      type: 'table',
+      table: {
+        headers: ['', 'Container (Docker)', 'Virtuelle Maschine'],
+        rows: [
+          ['Betriebssystem', 'teilt den Kernel des Hosts', 'bringt ein komplettes eigenes OS mit'],
+          ['Start', 'Millisekunden', 'Minuten (bootet ein System)'],
+          ['Größe', 'Megabytes', 'Gigabytes'],
+          ['Isolation', 'Prozess-Ebene — gut, aber nicht absolut', 'Hardware-Ebene — stärker'],
+          ['Typischer Einsatz', 'Dienste, Microservices, CI, Entwicklung', 'fremde Betriebssysteme, harte Trennung'],
+        ],
+      },
     },
     { type: 'heading', text: 'Vom Bauplan zum laufenden Container', color: '--cyan' },
     {
@@ -49,6 +66,8 @@ export const docker: Topic = {
             { key: `docker rm ${kbd('name')}`, info: 'Gestoppten Container entfernen.', why: 'Muss vorher gestoppt sein.' },
             { key: `docker logs -f ${kbd('name')}`, info: 'Ausgaben eines Containers ansehen.', why: '-f folgt live, wie tail -f.' },
             { key: `docker exec -it ${kbd('name')} bash`, info: 'In einen laufenden Container hineinspringen.', why: '-it macht es interaktiv (Tastatur + Terminal).' },
+            { key: `docker restart ${kbd('name')}`, info: 'Container neu starten.', why: 'stop + start in einem — der Klassiker nach Config-Änderungen.' },
+            { key: `docker cp ${kbd('name')}:/pfad ziel`, info: 'Dateien zwischen Container und Host kopieren.', why: 'Funktioniert in beide Richtungen — wie cp mit Containernamen als Prefix.' },
           ],
         },
         {
@@ -77,6 +96,56 @@ export const docker: Topic = {
           ],
         },
       ],
+    },
+
+    { type: 'heading', text: 'Volumes: Daten, die den Container überleben', color: '--cyan' },
+    {
+      type: 'prose',
+      html: `Container sind <b>Wegwerfware</b>: bei <code>docker rm</code> ist alles weg, was im Container geschrieben wurde. Daten, die bleiben sollen — Datenbanken, Uploads, Konfiguration — gehören in ein <b class="hl-green">Volume</b>: einen Speicherort außerhalb des Containers, den Docker in ihn hineinhängt. Zwei Spielarten:`,
+    },
+    {
+      type: 'table',
+      table: {
+        headers: ['', 'Named Volume', 'Bind Mount'],
+        rows: [
+          ['Syntax', '<code>-v daten:/var/lib/postgresql</code>', '<code>-v ./config:/etc/app</code>'],
+          ['Wo liegen die Daten?', 'Docker verwaltet sie (unter /var/lib/docker)', 'in genau DEM Host-Ordner, den du angibst'],
+          ['Wofür?', 'Datenbanken, App-Daten — Produktion', 'Configs & Quellcode — Entwicklung, Live-Editieren'],
+        ],
+      },
+    },
+    {
+      type: 'cheatsheet',
+      categories: [
+        {
+          name: 'Volumes',
+          rows: [
+            { key: `docker run -v ${kbd('daten')}:/pfad …`, info: 'Named Volume beim Start einhängen.', why: 'Existiert das Volume nicht, legt Docker es an.' },
+            { key: 'docker volume ls', info: 'Alle Volumes auflisten.', why: 'docker volume inspect zeigt, wo die Daten wirklich liegen.' },
+            { key: 'docker volume prune', info: 'Verwaiste Volumes löschen.', why: 'Achtung: weg heißt weg — vorher docker volume ls lesen.' },
+          ],
+        },
+        {
+          name: 'Netzwerke',
+          rows: [
+            { key: 'docker network create meinnetz', info: 'Eigenes Netzwerk für zusammengehörige Container.', why: 'Grundlage dafür, dass Container einander finden.' },
+            { key: `docker run --network meinnetz --name db …`, info: 'Container ins Netzwerk hängen.', why: 'Andere Container im selben Netz erreichen ihn dann als „db“.' },
+            { key: 'docker network ls', info: 'Netzwerke auflisten.', why: 'bridge ist der Standard, host verzichtet auf Isolation.' },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'callout',
+      variant: 'info',
+      title: 'Container finden sich per Name',
+      html: `Im selben (selbst angelegten) Netzwerk ist der <b>Containername der Hostname</b>: deine App erreicht die Datenbank einfach unter <code>db:5432</code> — Docker löst den Namen intern auf. IP-Adressen musst du nie anfassen. Genau dieses Muster automatisiert <a href="#/dockerfile">Docker Compose</a>.`,
+    },
+    {
+      type: 'callout',
+      variant: 'tip',
+      title: 'Weiter geht’s',
+      html: `Bis hierhin hast du fertige Images benutzt. Der nächste Schritt ist, <b>eigene</b> zu bauen: im Thema <a href="#/dockerfile">Dockerfile &amp; Compose</a> schreibst du ein Dockerfile Zeile für Zeile, verstehst Layers und den Build-Cache und startest einen ganzen Stack mit einer einzigen Datei.`,
     },
   ],
 };

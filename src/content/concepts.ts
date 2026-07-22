@@ -110,8 +110,68 @@ export const streamsPipes: Topic = {
       title: 'stdout vs. stderr — warum getrennt?',
       html: `Ein Programm schickt Ergebnisse auf <b>stdout</b> und Fehler/Warnungen auf <b>stderr</b>. So kannst du das Ergebnis in eine Datei leiten und Fehler trotzdem im Terminal sehen. In einer Pipe wandert nur stdout weiter — Fehler bleiben sichtbar. Das ist kein Zufall, sondern Design.`,
     },
+
+    { type: 'heading', text: 'Die Feinheiten: 2>&1, tee und /dev/null', color: '--purple' },
+    {
+      type: 'prose',
+      html: `<code>2&gt;&amp;1</code> liest sich sperrig, sagt aber nur: <b>„Schicke stderr (2) dorthin, wo stdout (1) gerade hinzeigt.“</b> Damit landen Ergebnis <i>und</i> Fehler zusammen in einer Datei — die klassische Zutat für Cronjobs und Logfiles. Der Haken: Umleitungen werden <b>von links nach rechts</b> verdrahtet, die Reihenfolge entscheidet.`,
+    },
+    {
+      type: 'table',
+      table: {
+        headers: ['Befehl', 'Effekt', 'Warum'],
+        rows: [
+          ['<code>befehl &gt; log 2&gt;&amp;1</code>', '✅ Alles landet in <code>log</code>', 'Erst zeigt stdout auf die Datei, DANN folgt stderr ihm dorthin.'],
+          ['<code>befehl 2&gt;&amp;1 &gt; log</code>', '❌ Fehler bleiben im Terminal', 'stderr folgt stdout, als der noch aufs Terminal zeigte — die Umleitung danach nimmt nur noch stdout mit.'],
+          ['<code>befehl &amp;&gt; log</code>', '✅ Kurzform von bash', 'Dasselbe wie <code>&gt; log 2&gt;&amp;1</code>, nur weniger Tippfehler-anfällig.'],
+        ],
+      },
+    },
+    {
+      type: 'cheatsheet',
+      categories: [
+        {
+          name: 'Profi-Umleitungen',
+          rows: [
+            { key: `${kbd('befehl')} 2>/dev/null`, info: 'Fehlermeldungen ins Nichts werfen.', why: '/dev/null ist das schwarze Loch: alles hinein Geschriebene verschwindet. Gut gegen „Permission denied“-Spam bei find.' },
+            { key: `${kbd('befehl')} | tee log.txt`, info: 'Ausgabe in Datei schreiben UND im Terminal sehen.', why: 'tee = T-Stück im Rohr. Mit -a hängt es an, statt zu überschreiben.' },
+            { key: `echo "x" | sudo tee /etc/conf`, info: 'Mit Root-Rechten in eine Datei schreiben.', why: 'sudo echo > datei scheitert, weil das > von DEINER Shell kommt — tee läuft dagegen als root.' },
+            { key: `${kbd('befehl')} < eingabe.txt`, info: 'Datei als stdin hineinreichen.', why: 'Selten nötig, weil die meisten Tools Dateinamen akzeptieren — aber gut zu erkennen.' },
+          ],
+        },
+      ],
+    },
+
+    { type: 'heading', text: 'Eine Pipeline wächst', color: '--cyan' },
+    {
+      type: 'scriptSim',
+      title: 'Vom Rohtext zur fertigen Liste — Stück für Stück',
+      interactive: true,
+      script: [
+        {
+          line: 'grep bash /etc/passwd',
+          explain: 'Start: alle Zeilen aus der User-Datenbank, in denen bash vorkommt. Noch voller Ballast — uns interessieren nur die Namen.',
+          output: 'root:x:0:0:root:/root:/bin/bash\nlevin:x:1000:1000:Levin:/home/levin:/bin/bash\nmax:x:1001:1001:Max:/home/max:/bin/bash',
+        },
+        {
+          line: 'grep bash /etc/passwd | cut -d: -f1',
+          explain: 'Die Pipe reicht die Trefferzeilen an <code>cut</code> weiter, das nur Spalte 1 (den Usernamen) behält. Trenner in /etc/passwd ist der Doppelpunkt.',
+          output: 'root\nlevin\nmax',
+        },
+        {
+          line: 'grep bash /etc/passwd | cut -d: -f1 | sort > bash-user.txt',
+          explain: 'Noch sortieren — und das Endergebnis mit <code>&gt;</code> in eine Datei umleiten. Beachte: KEINE Ausgabe im Terminal. stdout zeigt jetzt auf die Datei.',
+          output: '',
+        },
+        {
+          line: 'cat bash-user.txt',
+          explain: 'Beweis: die fertige Liste liegt in der Datei. Das ist das Unix-Muster — filtern, formen, sortieren, ablegen. Jede Stufe einzeln testbar.',
+          output: 'levin\nmax\nroot',
+        },
+      ],
+    },
     { type: 'heading', text: 'Ketten selbst bauen', color: '--green' },
-    { type: 'terminal', cwd: '/etc', intro: '# Verkette Tools: cat passwd | grep bash | wc -l  — oder: ls / | sort' },
+    { type: 'terminal', cwd: '/etc', intro: '# Verkette Tools: cat passwd | grep bash | wc -l, cut -d: -f1 passwd | sort, ls / | sort' },
   ],
 };
 
