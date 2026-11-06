@@ -21,5 +21,7 @@
                 "christian-kohler.path-intellisense"
             ]
         }
-    }
+    },
+
+    "forwardPorts": [5173]
 }
