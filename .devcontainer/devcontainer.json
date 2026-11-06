@@ -1,0 +1,25 @@
+{
+    "name":"Tuxlab Devcontainer",
+
+    "image":"mcr.microsoft.com/devcontainers/typescript-node",
+
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1":{},
+        "ghcr.io/stu-bell/devcontainer-features/node:0":{},
+        "ghcr.io/stu-bell/devcontainer-features/claude-code:0":{}
+    },
+
+    "customizations": {
+        "vscode":{
+            "extensions": [
+                "dbaeumer.vscode-eslint",
+                "steoates.autoimpo",
+                "formulahendry.auto-close-tag",
+                "aaron-bond.better-comments",
+                "github.vscode-github-actions",
+                "eamodio.gitlens",
+                "christian-kohler.path-intellisense"
+            ]
+        }
+    }
+}
